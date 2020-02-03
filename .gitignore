@@ -11,3 +11,6 @@ public
 .basement
 config.local.js
 basement_dist
+
+# webstorm
+.idea/
