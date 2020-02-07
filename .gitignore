@@ -5,12 +5,12 @@ npm-debug.log
 coverage/
 run
 dist
-public
 .DS_Store
 .nyc_output
 .basement
 config.local.js
 basement_dist
+blog/.vuepress/styles/*.css
 
 # webstorm
 .idea/

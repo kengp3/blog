@@ -1,20 +1,24 @@
 {
   "name": "kengp3-blog",
   "version": "0.0.1",
-  "description": "kengp3 Blog",
+  "description": "Kengp3 Blog",
   "main": "index.js",
   "authors": {
     "name": "Ken",
     "email": "sibawite@gmail.com"
   },
-  "repository": "https://github.com/kengp3/blog/kengp3-blog",
+  "repository": "https://github.com/kengp3/blog",
   "scripts": {
     "dev": "vuepress dev blog",
     "build": "vuepress build blog"
   },
   "license": "MIT",
   "devDependencies": {
-    "vuepress": "^1.0.0",
-    "@vuepress/theme-blog": "^1.0.0"
+    "@vuepress/plugin-google-analytics": "^1.3.0",
+    "@vuepress/theme-blog": "^2.0.3",
+    "markdown-it-task-lists": "^2.1.1",
+    "vuepress": "^1.3.0",
+    "vuepress-plugin-nprogress": "^1.1.6",
+    "vuepress-plugin-reading-progress": "^1.0.8"
   }
 }

@@ -1,13 +1,4 @@
-# kengp3-blog
+# [Kengp3 Blog](https://kengp3.github.io/blog/)
 
-> kengp3 blog
-
-## Development
-
-```bash
-yarn dev
-yarn build
-```
-
-For more details, please head VuePress's [documentation](https://v1.vuepress.vuejs.org/).
-
+Hi，這邊是我個人的部落格。  
+紀錄工作上遇到的問題，有時寫寫自己有興趣的事！  
