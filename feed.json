@@ -1,0 +1,16 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Ken.logs",
+    "home_page_url": "https://kengp3.github.io/blog/",
+    "feed_url": "https://kengp3.github.io/blog/feed.json",
+    "description": "隨便記錄點什麼。 #java #javascript #python",
+    "items": [
+        {
+            "id": "https://kengp3.github.io/blog/2020/02/05/start-blog/",
+            "url": "https://kengp3.github.io/blog/2020/02/05/start-blog/",
+            "title": "開始寫部落格",
+            "summary": "其實一直想要寫些東西，但一直都沒有持續下去。\n希望這次能夠一直維持這個習慣，紀錄工作與生活。 ...",
+            "date_modified": "2020-02-05T00:00:00.000Z"
+        }
+    ]
+}
