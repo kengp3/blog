@@ -91,6 +91,18 @@ module.exports = {
         },
       },
     ],
+    [
+      'vuepress-plugin-medium-zoom',
+      {
+        selector: '.vuepress-blog-theme-content :not(a) > img',
+        delay: 1000,
+        options: {
+          margin: 24,
+          background: 'rgba(219,219,219,0.9)',
+          scrollOffset: 0,
+        },
+      },
+    ],
   ],
   configureWebpack: {
     resolve: {
