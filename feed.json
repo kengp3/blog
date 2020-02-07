@@ -12,6 +12,13 @@
             "title": "開始寫部落格",
             "summary": "其實一直想要寫些東西，但一直都沒有持續下去。\n希望這次能夠一直維持這個習慣，紀錄工作與生活。 ...",
             "date_modified": "2020-02-05T00:00:00.000Z"
+        },
+        {
+            "id": "https://kengp3.github.io/blog/2020/02/06/build-blog-with-vuepress/",
+            "url": "https://kengp3.github.io/blog/2020/02/06/build-blog-with-vuepress/",
+            "title": "用 Vuepress + Github Page 搭建 Blog",
+            "summary": "之前有用過 Google 的 Blogger 寫過短暫的文章，這次看到 Vuepress 立馬想到搭配 Github Pages 應該是蠻不錯的，果然一查已經有不少人這麼做。當下覺得蠻有趣的想說不如重新再來開始寫部落格吧。 ...",
+            "date_modified": "2020-02-06T00:00:00.000Z"
         }
     ]
 }
