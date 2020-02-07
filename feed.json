@@ -20,13 +20,6 @@
             "summary": "之前有用過 Google 的 Blogger 寫過短暫的文章，這次看到 Vuepress 立馬想到搭配 Github Pages 應該是蠻不錯的，果然一查已經有不少人這麼做。當下覺得蠻有趣的不如重新再來寫部落格吧。\n\ncreate-vuepress 建立初始 project ...",
             "image": "https://kengp3.github.io/blog/~@alias/2020-2-7-build-blog-with-vuepress/03.png",
             "date_modified": "2020-02-07T00:00:00.000Z"
-        },
-        {
-            "id": "https://kengp3.github.io/blog/2020/02/07/test/",
-            "url": "https://kengp3.github.io/blog/2020/02/07/test/",
-            "title": "TEST",
-            "summary": "for test ...",
-            "date_modified": "2020-02-07T00:00:00.000Z"
         }
     ]
 }

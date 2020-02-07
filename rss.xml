@@ -4,7 +4,7 @@
         <title>Ken.logs</title>
         <link>https://kengp3.github.io/blog/</link>
         <description>隨便記錄點什麼。 #java #javascript #python</description>
-        <lastBuildDate>Fri, 07 Feb 2020 14:38:17 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 07 Feb 2020 14:49:08 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <image>
@@ -31,13 +31,6 @@
 create-vuepress 建立初始 project ...]]></description>
             <enclosure url="https://kengp3.github.io/blog/~@alias/2020-2-7-build-blog-with-vuepress/03.png">
             </enclosure>
-        </item>
-        <item>
-            <title><![CDATA[TEST]]></title>
-            <link>https://kengp3.github.io/blog/2020/02/07/test/</link>
-            <guid>https://kengp3.github.io/blog/2020/02/07/test/</guid>
-            <pubDate>Fri, 07 Feb 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[for test ...]]></description>
         </item>
     </channel>
 </rss>
