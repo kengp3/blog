@@ -4,6 +4,7 @@
     "home_page_url": "https://kengp3.github.io/blog/",
     "feed_url": "https://kengp3.github.io/blog/feed.json",
     "description": "隨便記錄點什麼。 #java #javascript #python",
+    "icon": "https://kengp3.github.io/blog/favicon.ico",
     "items": [
         {
             "id": "https://kengp3.github.io/blog/2020/02/05/start-blog/",
