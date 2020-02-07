@@ -38,6 +38,10 @@ module.exports = {
           link: 'https://github.com/kengp3',
         },
         {
+          type: 'twitter',
+          link: 'https://twitter.com/KenGP3',
+        },
+        {
           type: 'mail',
           link: 'mailto:sibawite@gmail.com',
         },
