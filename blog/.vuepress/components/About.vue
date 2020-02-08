@@ -13,7 +13,9 @@
 
 .photo-section
   text-align center
-  margin-bottom 10px
+  @media only screen and (max-width: 719px) {
+    margin-bottom 60px
+  }
   .photo
     display inline-block
     width: 230px
