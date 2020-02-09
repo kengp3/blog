@@ -24,6 +24,7 @@ $ yarn create vuepress [appName]
 完成後資料夾架構大概會像下面這樣：
 
 ```text
+.
 ├── .gitignore
 ├── README.md
 ├── blog
@@ -113,7 +114,8 @@ deploy:
 ```
 
 這時候會發現設定檔中 `$GITHUB_TOKEN` 這個欄位，也就是我們上面[申請](#申請-github-token)的 `TOKEN` 。
-但千萬不要把 `TOKEN` 直接寫在設定檔中，畢竟我們的 repo 是公開的，要設定在 [Travis CI](https://travis-ci.org/) 的環境變數中。
+
+> 千萬不要把 `TOKEN` 直接寫在設定檔中，畢竟我們的 repo 是公開的，要設定在 [Travis CI](https://travis-ci.org/) 的環境變數中。
 
 ### 2. 設定 [Travis CI](https://travis-ci.org/)
 
