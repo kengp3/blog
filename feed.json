@@ -20,6 +20,14 @@
             "summary": "之前有用過 Google 的 Blogger 寫過短暫的文章，這次看到 Vuepress 立馬想到搭配 Github Pages 應該是蠻不錯的，果然一查已經有不少人這麼做。當下覺得蠻有趣的不如重新再來寫部落格吧。\n\ncreate-vuepress 建立初始 project ...",
             "image": "https://kengp3.github.io/blog/~@alias/2020-2-7-build-blog-with-vuepress/03.png",
             "date_modified": "2020-02-07T00:00:00.000Z"
+        },
+        {
+            "id": "https://kengp3.github.io/blog/2020/02/09/vuepress-comment-vssue/",
+            "url": "https://kengp3.github.io/blog/2020/02/09/vuepress-comment-vssue/",
+            "title": "Vssue - 簡單幫 Vuepress Blog 加上留言功能",
+            "summary": "Vssue 是基於 issue 的留言功能，並且支援很多平台。\n\nGitHub OAuth App\nGitLab Application\nBitBucket OAuth Consumer\nGitee Third Party Application\nGitea Application\n\n這邊就主要是使用 Github 更多資訊 ...",
+            "image": "https://kengp3.github.io/blog/~@alias/2020-2-9-vuepress-comment-vssue/01.png",
+            "date_modified": "2020-02-09T00:00:00.000Z"
         }
     ]
 }

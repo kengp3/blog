@@ -4,7 +4,7 @@
         <title>Ken.logs</title>
         <link>https://kengp3.github.io/blog/</link>
         <description>隨便記錄點什麼。 #java #javascript #python</description>
-        <lastBuildDate>Sun, 09 Feb 2020 06:09:40 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 09 Feb 2020 07:11:26 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
         <image>
@@ -30,6 +30,23 @@
 
 create-vuepress 建立初始 project ...]]></description>
             <enclosure url="https://kengp3.github.io/blog/~@alias/2020-2-7-build-blog-with-vuepress/03.png">
+            </enclosure>
+        </item>
+        <item>
+            <title><![CDATA[Vssue - 簡單幫 Vuepress Blog 加上留言功能]]></title>
+            <link>https://kengp3.github.io/blog/2020/02/09/vuepress-comment-vssue/</link>
+            <guid>https://kengp3.github.io/blog/2020/02/09/vuepress-comment-vssue/</guid>
+            <pubDate>Sun, 09 Feb 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[Vssue 是基於 issue 的留言功能，並且支援很多平台。
+
+GitHub OAuth App
+GitLab Application
+BitBucket OAuth Consumer
+Gitee Third Party Application
+Gitea Application
+
+這邊就主要是使用 Github 更多資訊 ...]]></description>
+            <enclosure url="https://kengp3.github.io/blog/~@alias/2020-2-9-vuepress-comment-vssue/01.png">
             </enclosure>
         </item>
     </channel>
