@@ -7,6 +7,13 @@
     "icon": "https://kengp3.github.io/blog/favicon-32x32.png",
     "items": [
         {
+            "id": "https://kengp3.github.io/blog/2020/02/13/css-box-sizing/",
+            "url": "https://kengp3.github.io/blog/2020/02/13/css-box-sizing/",
+            "title": "css box-sizing",
+            "summary": "最近再調整 css 的時候發現，已經給定了 width 跟 height 但是顯示的大小卻不是設定的那樣。\n後來才發現如果有設定 margin 或是 padding 時，大小會再加上邊界跟內距這兩個數值。但有時候我們希望物件的大小直接就是設定的寬高，就可以使用 box-sizing。\n\n以下節錄 [MDN - box-sizing - CSS](https://de ...",
+            "date_modified": "2020-02-13T00:00:00.000Z"
+        },
+        {
             "id": "https://kengp3.github.io/blog/2020/02/05/start-blog/",
             "url": "https://kengp3.github.io/blog/2020/02/05/start-blog/",
             "title": "開始寫部落格",
