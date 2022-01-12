@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>for test</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script>
+      $(function () {
+        var chkIndex = getParameter('chk');
+        $("input[type='checkbox']").prop('checked', false);
+        $("input[type='checkbox']").eq(chkIndex).prop('checked', true);
+
+        $("input[type='checkbox']").click(function (e) {
+          $("input[type='checkbox']").prop('checked', false);
+          $(e.target).prop('checked', true);
+          window.history.replaceState(null, null, '?chk=' + e.target.value);
+          // window.history.replaceState(null, null, '?chk=2');
+          window.location = "https://www.google.com.tw";
+        });
+      });
+
+      function getParameter(p) {
+        var url = window.location.search.substring(1);
+        var varUrl = url.split('&');
+        for (var i = 0; i < varUrl.length; i++) {
+          var parameter = varUrl[i].split('=');
+          if (parameter[0] == p) {
+            return parameter[1];
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <input type="checkbox" name="test" value="0" />
+    <br />
+    <input type="checkbox" name="test" value="1" />
+    <br />
+    <input type="checkbox" name="test" value="2" />
+    <br />
+  </body>
+</html>
