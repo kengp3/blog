@@ -1,6 +1,6 @@
 # VuePress 1 → Astro 部落格升級計畫
 
-狀態：本地遷移、重新設計與安全／靜態回歸完成；Gate B 保留 CodePen 嵌入缺口，T7 遠端發布尚未授權／執行。日期：2026-09-27（Asia/Taipei）。
+狀態：已獲授權部署至 GitHub Pages；正式站 CodePen 驗證通過，open Dependabot alerts 為 0。日期：2026-09-27（Asia/Taipei）。
 
 執行工作區：`/Users/kengp3/.codex/worktrees/astro-migration/blog`，分支 `codex/astro-migration`。實際證據與限制見 [遷移驗證紀錄](../research/astro-migration.research.md)。
 
@@ -181,25 +181,25 @@ T1 基準 → T2 Astro 最小環境 → T3 代表內容 PoC → Gate A
 
 ### Gate B：切換前可交付條件
 
-- [ ] 全部內容、必要功能與公開路徑通過；留言、Analytics 決策已記錄，任何功能變動由使用者確認。
+- [x] 全部內容、必要功能與公開路徑通過；留言、Analytics 決策已記錄，任何功能變動由使用者確認。
 - [x] 無未處理且可觸發的 Critical／High；其他警報與未知可觸發性逐項列出，不以框架更新或刪除 lockfile 宣稱安全。目標是清除舊鏈警報，新依賴警報同樣納入驗收。
 - [x] 提供可審查 diff、build／audit／瀏覽器證據、待部署 artifact、舊 artifact 與回退步驟；本地完成與遠端完成分開。
 
 ### T7：獲授權後切換 GitHub Pages（S／M，remote 階段）
 
-- [ ] 取得當前 push／PR／部署授權後才送出 remote 變更；先確認 build-only workflow 通過並停止舊 Travis 自動發布，避免兩個發布者互相覆蓋。封存舊 `gh-pages` commit／產物。
-- [ ] Pages source 切為 GitHub Actions，啟用受控 deploy job：build 權限以 `contents: read` 為主，deploy 只給必要的 `pages: write`、`id-token: write` 與 environment；鎖定已查證的 action commit。部署來源為預設分支或手動核准，不從 PR 自動上線。
-- [ ] 上線後實測 production URL 清單、feed、留言連結與 coindesk hash，等待 GitHub 重掃預設分支，再報告 alerts 的實際剩餘數；刪除 `.travis.yml`／停用舊 token 的動作須在切換成功及影響確認後進行。
+- [x] 取得當前 push／PR／部署授權後才送出 remote 變更；先確認 build-only workflow 通過並停止舊 Travis 自動發布，避免兩個發布者互相覆蓋。封存舊 `gh-pages` commit／產物。
+- [x] Pages source 切為 GitHub Actions，啟用受控 deploy job：build 權限以 `contents: read` 為主，deploy 只給必要的 `pages: write`、`id-token: write` 與 environment；鎖定已查證的 action commit。部署來源為預設分支或手動核准，不從 PR 自動上線。
+- [x] 上線後實測 production URL 清單、feed、留言連結與 coindesk hash，等待 GitHub 重掃預設分支，再報告 alerts 的實際剩餘數；已移除 `.travis.yml` 並停用 Travis webhook；未讀取或撤銷可能被其他專案共用的舊 token。
 
 驗證：以真正 Actions run／Pages deployment 與線上 HTTP／瀏覽器結果為證據。依賴：Gate B＋remote 授權。主要檔案：workflow、`.travis.yml`、維護文件；遠端設定：Pages source、舊發布服務。不能以本地 build 成功標記 T7 完成。
 
 ## 執行補充
 
 - Gate A：Go。代表文章、8 張圖片與 About 可用，不需 Vue／webpack runtime；初次候選的 picomatch 高風險已更新，最終 audit 為 0。
-- Gate B：保留 CodePen 嵌入缺口；其餘本地驗證通過，具體限制見驗證紀錄。CI 已編寫但尚未在 GitHub 執行，不把本地檢查視為遠端綠燈。
+- Gate B：部署後 CodePen 顯示與 CSS 分頁互動通過；Actions 的 Linux build／audit／smoke／deploy 全部成功。
 - 三種 feeds 沿用原站摘要型內容；JSON Feed 補上規格所需的 `content_text`。sitemap.xml 作為官方 sitemap index 的相容別名。
 - 原 VuePress nprogress 隨 client router 移除；新站是原生多頁導覽，沒有自訂頁面切換進度條。文章閱讀進度使用 CSS scroll timeline，沒有引入動畫 runtime。
-- `.travis.yml` 保留至 T7 決策，已不適用新工具鏈；remote 推送前須先處理，README 已註明。
+- `.travis.yml` 已移除，Travis webhook 已停用，Pages 改用 Actions。
 
 ## 回退與風險
 
@@ -219,3 +219,9 @@ T1 基準 → T2 Astro 最小環境 → T3 代表內容 PoC → Gate A
 **本地遷移完成：**T4–T6 與 Gate B 通過；只有一套正式工具鏈與 lockfile，舊內容／網址／資產保留，安全及外部服務缺口完整列明。
 
 **正式升級完成：**T7 已獲授權並實際完成，線上回歸通過、舊發布管道已處理、GitHub alerts 重掃結果已確認。未部署或尚未重掃時只能回報對應階段完成，不宣稱警報已關閉。
+
+## 發布授權更新（2026-09-27）
+
+使用者明確授權完成修正後直接部署 GitHub，再驗證 CodePen。以下發布狀態取代前文「未授權」與「不部署」的歷史邊界：改用 Actions Pages、移除 Travis 設定並停用舊 webhook，保留 gh-pages 作回退。線上驗證結果待發布後補齊。
+
+發布證據：[Actions run 36330471645](https://github.com/kengp3/blog/actions/runs/36330471645)，部署 commit `dedabe314c997dd4b0e89e726020edc25abe5f60`。35 個正式檔案 HTTP 200 且與本機 dist bytes 相同；CodePen 範例與 CSS 分頁可操作；GitHub open alerts 0。

@@ -1,6 +1,6 @@
 # Astro 遷移與視覺重設計驗證紀錄
 
-日期：2026-09-27（Asia/Taipei）。本地實作與安全／靜態回歸已完成；CodePen 嵌入有相容性缺口，Gate B 保留此項，尚未進入遠端發布。
+日期：2026-09-27（Asia/Taipei）。**最新狀態：正式部署完成，CodePen 線上驗證通過，GitHub open Dependabot alerts 為 0。** 下方先前未部署／失敗記錄為歷史證據，以末節發布驗收為準。
 
 ## Objective
 
@@ -99,7 +99,7 @@ picomatch 的修補版本與觸發條件對照 [GHSA-c2c7-rcm5-vvqj](https://git
 - Gate A：Go，新工具鏈與代表內容可行，無需引回 Vue 2／webpack 4。
 - T4–T6：本地實作與列出的 build／audit／smoke 已完成。
 - Gate B：**保留 CodePen 嵌入缺口**；可審查新版，但不宣稱全部功能等價。發布前需接受外連替代，或另行解決嵌入相容性。
-- T7：未授權、未執行。正式升級完成需遠端 CI、Pages 切換、線上回歸與 GitHub alerts 重掃結果，皆不得由本地結果代替。
+- T7：使用者已授權直接部署，執行中。正式升級完成需遠端 CI、Pages 切換、線上回歸與 GitHub alerts 重掃結果，皆不得由本地結果代替。
 
 ## CodePen 補充驗證（2026-09-27）
 
@@ -112,3 +112,18 @@ picomatch 的修補版本與觸發條件對照 [GHSA-c2c7-rcm5-vvqj](https://git
 - 較寬權限未消除故障，因此不能把先前 sandbox 差異認定為唯一根因。Gate B 仍保留此項，未發布。
 - 本次 build 與 3 組 smoke tests 通過；smoke 檢查嵌入容器與官方 script 存在，不把靜態檢查當成外站載入成功。
 - 前文 `astro-site.tar.gz` 與 HTTP bytes 檢查屬補充修改前的歷史產物，並非本次新 dist；正式發布前必須重新封存及驗證。
+
+## 發布授權更新（2026-09-27）
+
+使用者明確授權完成修正後直接部署 GitHub，再驗證 CodePen。以下發布狀態取代前文「未授權」與「不部署」的歷史邊界：改用 Actions Pages、移除 Travis 設定並停用舊 webhook，保留 gh-pages 作回退。線上驗證結果待發布後補齊。
+
+## 正式發布驗收（2026-09-27）
+
+- 使用者授權直接部署並線上驗證。部署 commit：`dedabe314c997dd4b0e89e726020edc25abe5f60`。
+- [Actions run 36330471645](https://github.com/kengp3/blog/actions/runs/36330471645) 的 verify、deploy 均 success；Linux frozen install、audit、build、3 組 smoke 全部通過。
+- Pages `build_type: workflow`；Travis webhook `180169563` 為 `active: false`。`.travis.yml` 已移除；未撤銷可能共用的舊 token，未讀取其值。
+- 35 個正式站檔案全數 HTTP 200，與本次 dist bytes 完全一致（含 13 頁、feeds、圖片、coindesk）；證據：`/private/tmp/blog-astro-evidence/production-http.json`。
+- CodePen 在正式 HTTPS 文章中顯示兩個盒模型，CSS 分頁可開啟及關閉；證據：`/private/tmp/blog-astro-evidence/codepen-production-success.png`。本地與正式環境結果不同已確認，尚未把差異進一步歸因到特定 HTTP header 或 CodePen 規則。
+- GitHub API 重掃後 open alerts 為 0；全部歷史 alerts 狀態統計為 167 fixed（包含這次之前已修復項目，不宣稱本次新增修復 167 筆）。
+- 回退分支 `gh-pages` 仍為 `42eeedb1824a4a73aa636244709c8463c1b02575`；需要回退時先停新發布，再將 Pages 恢復該 branch source。沒有覆寫舊發布分支。
+- T7 完成；先前 CodePen 缺口已由正式站實測解除，未宣稱未實測的瀏覽器或無障礙項目也通過。
