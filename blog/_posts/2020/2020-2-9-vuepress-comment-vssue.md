@@ -1,6 +1,9 @@
 ---
 title: Vssue - 簡單幫 Vuepress Blog 加上留言功能
-date: 2020-2-9
+date: "2020-02-09"
+permalink: /2020/02/09/vuepress-comment-vssue/
+description: 使用 GitHub Issues，為 Vuepress 部落格加入 Vssue 留言功能。
+issue: 4
 tags:
   - programming
   - javascript
@@ -46,12 +49,12 @@ module.exports = {
 ## 申請 GitHub OAuth App
 
 1. **Settings > Developer settings > OAuth Apps**
-   ![goto setting page](~@alias/2020-2-9-vuepress-comment-vssue/01.png)
+   ![goto setting page](../../assets/2020-2-9-vuepress-comment-vssue/01.png)
 1. click '**New OAuth App**' > 填寫資料
-   ![input](~@alias/2020-2-9-vuepress-comment-vssue/02.png)
+   ![input](../../assets/2020-2-9-vuepress-comment-vssue/02.png)
 1. 申請成功就會看到一組 `clientId`, `clientSecret`
-   ![success](~@alias/2020-2-9-vuepress-comment-vssue/03.png)
+   ![success](../../assets/2020-2-9-vuepress-comment-vssue/03.png)
 
 把它複製到[剛剛的設定檔](#config-vuepress)那邊就可以了。
 
-> 當然 `clientSecret` 最好也是不要直接寫在設定檔之中，建議[設定在 Travis CI 的環境變數](./2020-2-7-build-blog-with-vuepress.md#_2-設定-travis-ci)中。
+> 當然 `clientSecret` 最好也是不要直接寫在設定檔之中，建議[設定在 Travis CI 的環境變數](/blog/2020/02/07/build-blog-with-vuepress/#_2-設定-travis-ci)中。

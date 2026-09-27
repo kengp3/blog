@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { Content } from '../../blog/about/README.md';
+import avatar from '../assets/ken.png';
+---
+
+<Base title="About" description="Ken 的程式、學習與生活記錄。">
+  <article class="about-layout">
+    <div class="portrait">
+      <Image src={avatar} width={320} height={320} alt="Ken 的 GitHub 頭像" loading="eager" /><span
+        >Ken</span>
+    </div><div>
+      <div class="prose about-copy"><Content /></div><a
+        class="text-link"
+        href="https://github.com/kengp3">在 Github 找我 <span aria-hidden="true">↗</span></a>
+    </div>
+  </article>
+</Base>

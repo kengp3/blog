@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { posts, href } from '../lib/posts';
+import cover from '../assets/box-model.png';
+const entries = await posts();
+const [latest, ...rest] = entries;
+const tags = [...new Set(entries.flatMap((post) => post.data.tags))];
+---
+
+<Base>
+  <section class="home-intro">
+    <p class="intro-label">程式、學習，還有生活。</p><h1>隨便記錄點什麼。</h1><p>
+      把遇到的問題、找到的方法，留在這裡。
+    </p>
+  </section>
+  {
+    latest && (
+      <article class="featured">
+        <a
+          class="featured-image"
+          href={href(latest.data.permalink)}
+          aria-label={`閱讀：${latest.data.title}`}
+        >
+          <Image
+            src={cover}
+            alt="青綠色紙盒與半透明紙張交疊，呈現層次與空間"
+            width={900}
+            format="webp"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </a>
+        <div class="featured-copy">
+          <>
+            <div class="post-tags">
+              {latest.data.tags.map((tag) => (
+                <a href={href(`/tag/${tag}/`)}>{tag}</a>
+              ))}
+            </div>
+            <h2>
+              <a href={href(latest.data.permalink)}>{latest.data.title}</a>
+            </h2>
+            <p>{latest.data.description}</p>
+            <div class="featured-bottom">
+              <>
+                <time datetime={latest.data.date}>{latest.data.date.replaceAll('-', '.')}</time>
+                <a class="text-link" href={href(latest.data.permalink)}>
+                  閱讀文章 <span aria-hidden="true">↗</span>
+                </a>
+              </>
+            </div>
+          </>
+        </div>
+      </article>
+    )
+  }
+  <section class="writing-section" aria-labelledby="writing-heading">
+    <div class="section-title">
+      <h2 id="writing-heading">更多記錄</h2><span>{entries.length} 篇文章</span>
+    </div><PostList entries={rest} />
+  </section>
+  <section class="topics" aria-labelledby="topics-heading">
+    <h2 id="topics-heading">依主題閱讀</h2><nav aria-label="所有主題">
+      {
+        tags.map((tag) => (
+          <a href={href(`/tag/${tag}/`)}>
+            {tag}
+            <span>{entries.filter((post) => post.data.tags.includes(tag)).length}</span>
+          </a>
+        ))
+      }
+    </nav>
+  </section>
+</Base>

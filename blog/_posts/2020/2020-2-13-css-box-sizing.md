@@ -1,6 +1,8 @@
 ---
 title: css box-sizing
-date: 2020-2-13
+date: "2020-02-13"
+permalink: /2020/02/13/css-box-sizing/
+description: width 與 height 為什麼和預期不同？一起理解 CSS 盒模型與 box-sizing。
 tags:
   - programming
   - css
@@ -58,3 +60,5 @@ box-sizing: unset;
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+[在 CodePen 開啟 css box-sizing 範例](https://codepen.io/kengp3/pen/OJVMPNM)

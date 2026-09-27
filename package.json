@@ -2,24 +2,30 @@
   "name": "kengp3-blog",
   "version": "0.0.1",
   "description": "Kengp3 Blog",
-  "main": "index.js",
   "authors": {
     "name": "Ken",
     "email": "sibawite@gmail.com"
   },
   "repository": "https://github.com/kengp3/blog",
   "scripts": {
-    "dev": "vuepress dev blog",
-    "build": "vuepress build blog"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test scripts/smoke.test.mjs"
   },
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.5.4",
-    "@vuepress/theme-blog": "^2.3.2",
-    "markdown-it-task-lists": "^2.1.1",
-    "vuepress": "^1.5.4",
-    "vuepress-plugin-medium-zoom": "^1.1.9",
-    "vuepress-plugin-nprogress": "^1.1.8",
-    "vuepress-plugin-reading-progress": "^1.0.10"
-  }
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.3.5",
+    "fast-xml-parser": "5.11.1",
+    "ultrahtml": "1.6.0"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "npm": ">=11.19.0 <12"
+  },
+  "packageManager": "npm@11.19.0"
 }

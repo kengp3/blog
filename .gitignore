@@ -14,3 +14,6 @@ blog/.vuepress/styles/*.css
 
 # webstorm
 .idea/
+
+# Astro generated state
+.astro/

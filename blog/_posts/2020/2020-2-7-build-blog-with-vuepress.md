@@ -1,6 +1,8 @@
 ---
 title: 用 Vuepress + Github Pages 搭建 Blog
-date: 2020-2-7
+date: "2020-02-07"
+permalink: /2020/02/07/build-blog-with-vuepress/
+description: 從 Vuepress 開始，搭配 Github Pages 與 Travis CI，建立自己的部落格。
 tags:
   - programming
   - javascript
@@ -15,7 +17,7 @@ location: Taipei, Taiwan
 
 Vuepress 官方有提供 CLI 為 [create-vuepress](https://github.com/vuepressjs/create-vuepress) 直接輸入
 
-```shell script
+```shell
 $ yarn create vuepress [appName]
 ```
 
@@ -57,7 +59,7 @@ $ yarn create vuepress [appName]
 
 這時候你就可以試跑起來看看了，記得要先安裝 `dependencies` ，執行：
 
-```shell script
+```shell
 yarn && yarn dev
 ```
 
@@ -77,21 +79,25 @@ module.exports = {
 };
 ```
 
+<span id="申請-github-token" class="legacy-anchor"></span>
+
 ## 申請 `$GITHUB_TOKEN`
 
 `$GITHUB_TOKEN` 是為了讓之後的 [Travis CI](https://travis-ci.org/) 來介接你 Github 上的 repo。在下面的章節 [設定 Travis CI](#_2-設定-travis-ci) 會使用到。
 
 1. Github 先前往設定頁面 **Settings > Developer settings**
 1. 選擇 **Personal access tokens > Generate new token**
-   ![goto page](~@alias/2020-2-7-build-blog-with-vuepress/03.png)
+   ![goto page](../../assets/2020-2-7-build-blog-with-vuepress/03.png)
 1. 勾選 **public_repo**
-   ![check public repo](~@alias/2020-2-7-build-blog-with-vuepress/04.png)
+   ![check public repo](../../assets/2020-2-7-build-blog-with-vuepress/04.png)
 1. 這一串就是你的 `$GITHUB_TOKEN`
-   ![got token](~@alias/2020-2-7-build-blog-with-vuepress/05.png)
+   ![got token](../../assets/2020-2-7-build-blog-with-vuepress/05.png)
 
 ## 搭配 Travis CI
 
 每次都要 build 完並 push 到 `gh-pages` 太麻煩，所以[官網建議](https://vuepress.vuejs.org/guide/deploy.html#github-pages)使用 [Travis CI](https://travis-ci.org/)。而 [Github](https://github.com/) 與 Travis CI 連動需要幾個步驟。
+
+<span id="_1-在根目錄上建立-travis-yml-內容如下" class="legacy-anchor"></span>
 
 ### 1. 在根目錄上建立 `.travis.yml` 內容如下：
 
@@ -117,13 +123,15 @@ deploy:
 
 > 千萬不要把 `TOKEN` 直接寫在設定檔中，畢竟我們的 repo 是公開的，要設定在 [Travis CI](https://travis-ci.org/) 的環境變數中。
 
+<span id="_2-設定-travis-ci" class="legacy-anchor"></span>
+
 ### 2. 設定 [Travis CI](https://travis-ci.org/)
 
 1. 使用 Github 帳號登入
 1. 啟用你的 Blog repository
-   ![active repo.](~@alias/2020-2-7-build-blog-with-vuepress/01.png)
+   ![active repo.](../../assets/2020-2-7-build-blog-with-vuepress/01.png)
 1. 點 **Settings** > 設定 `$GITHUB_TOKEN` 環境變數
-   ![setting token](~@alias/2020-2-7-build-blog-with-vuepress/02.png)
+   ![setting token](../../assets/2020-2-7-build-blog-with-vuepress/02.png)
 
 ## 結束
 

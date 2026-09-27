@@ -1,0 +1,139 @@
+---
+import { href, site, posts } from '../lib/posts';
+import '../styles/site.css';
+const {
+  title = 'KEN.LOGS',
+  description = '隨便記錄點什麼。 #java #javascript #python',
+  article = false,
+} = Astro.props;
+const entries = await posts();
+const canonical = new URL(Astro.url.pathname, site).href;
+const active = Astro.url.pathname.includes('/tag/')
+  ? 'Tags'
+  : Astro.url.pathname.includes('/about/')
+    ? 'About'
+    : 'Blog';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title === 'KEN.LOGS' ? title : `${title} | Ken.logs`}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:url" content={canonical} /><meta
+      property="og:type"
+      content={article ? 'article' : 'website'}
+    />
+    <meta property="og:locale" content="zh_TW" /><meta property="og:site_name" content="Ken.logs" />
+    <link rel="icon" href={href('/favicon.ico')} />
+    <link rel="alternate" type="application/rss+xml" title="Ken.logs RSS" href={href('/rss.xml')} />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="Ken.logs Atom"
+      href={href('/feed.atom')}
+    />
+    <link
+      rel="alternate"
+      type="application/feed+json"
+      title="Ken.logs JSON Feed"
+      href={href('/feed.json')}
+    />
+    <link rel="sitemap" href={href('/sitemap.xml')} />
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('ken-theme');
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip">跳至內容</a>
+    {article && <div class="reading-progress" aria-hidden="true" />}
+    <header class="site-header shell">
+      <a class="brand" href={href()}>KEN.LOGS</a>
+      <nav class="primary-nav" aria-label="主要導覽">
+        {
+          [
+            ['Blog', '/'],
+            ['Tags', '/tag/'],
+            ['Github', 'https://github.com/kengp3/blog/'],
+            ['About', '/about/'],
+          ].map(([label, path]) => (
+            <a
+              href={path.startsWith('https:') ? path : href(path)}
+              aria-current={active === label ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="tools">
+        <button id="search-open" hidden>搜尋 <span aria-hidden="true">⌕</span></button><button
+          id="theme-toggle"
+          hidden
+          aria-label="切換深色模式">深色</button>
+      </div>
+    </header>
+    <main id="main" class="shell"><slot /></main>
+    <footer class="site-footer shell">
+      <div class="footer-top">
+        <a class="brand" href={href()}>KEN.LOGS</a><p>隨便記錄點什麼。</p>
+        <nav aria-label="社群與訂閱">
+          <a href="https://github.com/kengp3">Github</a><a href="https://twitter.com/KenGP3"
+            >Twitter</a
+          ><a href="mailto:sibawite@gmail.com">Email</a><a href={href('/rss.xml')}>RSS</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <a href={href()}>KenShen © 2020</a><a
+          href="https://creativecommons.org/licenses/by-nc-nd/3.0/tw/"
+          >本部落格依照創用CC「姓名標示-非商業性-禁止改作 3.0 台灣」授權</a>
+      </div>
+    </footer>
+    <dialog id="search-dialog" aria-labelledby="search-heading">
+      <div class="dialog-heading">
+        <h2 id="search-heading">搜尋文章</h2><form method="dialog">
+          <button aria-label="關閉搜尋">關閉</button>
+        </form>
+      </div>
+      <label for="search-input">標題、標籤或內文</label><input
+        id="search-input"
+        type="search"
+        autocomplete="off"
+        placeholder="例如：Vuepress"
+      />
+      <p id="search-count" class="muted" role="status"></p>
+      <ul id="search-results">
+        {
+          entries.map((post) => (
+            <li
+              data-search={`${post.data.title} ${post.data.tags.join(' ')} ${post.body ?? ''}`.toLocaleLowerCase()}
+            >
+              <a href={href(post.data.permalink)}>
+                {post.data.title}
+                <time datetime={post.data.date}>{post.data.date}</time>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p id="search-empty" hidden>找不到符合的文章，試試其他關鍵字。</p>
+    </dialog>
+    <dialog id="image-dialog" aria-label="放大圖片">
+      <form method="dialog"><button aria-label="關閉放大圖片">關閉</button></form><img
+        id="zoom-image"
+        alt=""
+      />
+    </dialog>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

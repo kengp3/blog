@@ -1,6 +1,5 @@
 ---
 permalink: /about
-layout: About
 ---
 
 <h1>嗨, 我是 Ken.</h1>
