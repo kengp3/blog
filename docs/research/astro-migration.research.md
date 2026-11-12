@@ -1,6 +1,6 @@
 # Astro 遷移與視覺重設計驗證紀錄
 
-日期：2026-09-27（Asia/Taipei）。**最新狀態：正式部署完成，CodePen 線上驗證通過，GitHub open Dependabot alerts 為 0。** 下方先前未部署／失敗記錄為歷史證據，以末節發布驗收為準。
+初次驗證日期：2026-09-27；最近補充：2026-11-12（Asia/Taipei）。**最新狀態：同步後本機安裝、建置與測試通過；CodePen 在有視窗 Chrome 的本機與正式站皆正常，headless 模式則兩邊都被 CodePen 的 Cloudflare 驗證阻擋。** 詳見末節。前文部署、警報數量與未通過項目保留各自日期的歷史證據，不視為本次重新驗證結果。
 
 ## Objective
 
@@ -127,3 +127,64 @@ picomatch 的修補版本與觸發條件對照 [GHSA-c2c7-rcm5-vvqj](https://git
 - GitHub API 重掃後 open alerts 為 0；全部歷史 alerts 狀態統計為 167 fixed（包含這次之前已修復項目，不宣稱本次新增修復 167 筆）。
 - 回退分支 `gh-pages` 仍為 `42eeedb1824a4a73aa636244709c8463c1b02575`；需要回退時先停新發布，再將 Pages 恢復該 branch source。沒有覆寫舊發布分支。
 - T7 完成；先前 CodePen 缺口已由正式站實測解除，未宣稱未實測的瀏覽器或無障礙項目也通過。
+
+## 同步後本機與正式站補充驗證（2026-11-12）
+
+### 範圍與環境
+
+- 驗證時間：2026-11-12 約 22:25–22:35（Asia/Taipei）；本節補記當次結果，不代表後續服務狀態持續不變。
+- 工作區：`/Users/kengp3/Workspaces/mine/blog`；`master` 已同步至 `7dd34cc7f6282e20676d3539dd674a87bfb5fb2a`，包含 `fast-xml-parser` 5.12.0 修補。
+- 本機預覽：`http://127.0.0.1:4321/blog/`；CodePen 對照正式頁：[css box-sizing](https://kengp3.github.io/blog/2020/02/13/css-box-sizing/)。本次正式站瀏覽器檢查聚焦此頁，未重跑 2026-09-27 的全部 35 個正式產物檢查。
+- macOS ARM64；使用隔離的 Node 24.21.0／npm 11.19.0，Node tarball 已核對官方 SHA-256。系統預設 Node 26／npm 12 未更動，不以不符合 engines 的版本執行專案。
+- Browser plugin 不可用，改用 Playwright CLI／Chrome 157.0.8103.79。一般頁面檢查涵蓋 1440×1000 與 390×844；CodePen 額外比較獨立的 headed（有視窗）與 headless（無視窗）session。
+
+### 本機安裝、建置與瀏覽器結果
+
+依序執行 `npm ci --ignore-scripts`、`npm audit --audit-level=low`、`npm run build`、`npm test`，再以 `npm run preview -- --host 127.0.0.1` 啟動靜態預覽；設定 `ASTRO_TELEMETRY_DISABLED=1`。
+
+| 項目 | 當次觀察與判定 |
+| --- | --- |
+| 安裝／audit | 安裝 203 個套件，audit 共 204 個（含 root），0 個漏洞；未啟用 lifecycle scripts |
+| 建置／測試 | 成功建置 13 個頁面；3 項 smoke tests 通過，0 fail／skipped |
+| 頁面識別與內容 | 首頁、About、Tags、vuepress 標籤頁及全部 4 篇文章，各測兩種 viewport，共 16 次檢查；皆 HTTP 200，title／h1 與正文存在，無框架錯誤遮罩或全頁橫向溢出 |
+| 畫面／圖片 | 檢視桌面、手機、明暗模式與圖片對話框截圖；未觀察到本站圖片載入失敗。首頁截圖等待或停用入場動畫後再判讀，避免把動畫過程當成空白頁 |
+| 搜尋 | `vuepress` 顯示 2 篇，無匹配字串顯示 0 篇與空狀態；手機也通過。關閉按鈕正常；search input 有值時 Escape 先清除文字，再按才關閉 dialog |
+| 主題 | 深色／淺色可切換；重新載入後 `data-theme` 與 `localStorage` 保留深色設定 |
+| 導覽 | Tags → vuepress 顯示 2 篇，能開啟文章；文章目錄 Examples 更新 fragment，等待平滑捲動後目標進入 viewport；手機 About 導覽正常 |
+| 圖片放大 | 文章圖片可開啟 dialog，放大圖 `naturalWidth > 0`，Escape 可關閉 |
+| Console | 未觀察到本站 JavaScript 錯誤；外部 CodePen 的 headless 403／iframe 拒載與 origin-trial warnings 另列如下，不將整體 console 宣稱為零錯誤 |
+
+### CodePen 原因與正式站對照
+
+| 模式 | 本機 HTTP 頁面 | 正式 HTTPS 頁面 |
+| --- | --- | --- |
+| 有視窗 Chrome | CodePen embed HTTP 200；2 個盒模型呈現，CSS 分頁開啟與關閉通過 | CodePen embed HTTP 200；2 個盒模型呈現，CSS 分頁開啟與關閉通過 |
+| Headless Chrome | CodePen embed HTTP 403；`cf-mitigated: challenge`、`X-Frame-Options: SAMEORIGIN` | 相同 HTTP 403 與上述兩個標頭，iframe 同樣遭拒載 |
+
+**已確認的因果鏈：**headless 請求取得的是 CodePen 端 Cloudflare 驗證回應，而非正常 embed HTML；`cf-mitigated: challenge` 是 Cloudflare 官方定義的驗證頁識別標頭。該回應同時帶有 `X-Frame-Options: SAMEORIGIN`，瀏覽器因此拒絕將其顯示於本機或 GitHub Pages 的跨來源 iframe，console 出現 `Refused to display ... in a frame`，frame 導向 `chrome-error://chromewebdata/`。這些限制標頭來自 CodePen 回應，不是本站設定。
+
+- 本機與正式文章回應皆 HTTP 200，均未觀察到父頁的 CSP／X-Frame-Options 限制。兩邊產生的 iframe URL、sandbox 與嵌入屬性相同；當次完整文章 HTML bytes 也完全相同，SHA-256：`41a8cecaec889026e81d60da8b3217da1ae9667c87fcf66216a637ee42c2093a`。
+- `https://static.codepen.io/assets/embed/ei.js` 正常以 301 轉到 `https://public.codepenassets.com/embed/index.js`，腳本成功產生 iframe；失敗點在後續 embed 回應，不是遺漏 script 或 Astro 沒有渲染容器。
+- 同一檢查環境下，有視窗與 headless 的結果不同，且本機與正式站在同一模式下結果一致。因此本次證據不支持「localhost／HTTP 被禁止」或「本站 sandbox 設定有誤」；未為此變更網站、放寬安全設定或嘗試繞過 Cloudflare。
+- **尚未確認：**CodePen 的內部偵測規則不可見，無法斷言觸發原因只是一個 User-Agent 欄位，或排除 cookie、session、其他瀏覽器訊號。403 body 因瀏覽器阻擋導覽而無法讀取；以上結論依據實際回應標頭、console 與 headed／headless 對照，不推測未取得的內容。
+- 本次結果補足先前未取得 HTTP headers 的診斷缺口；不據此追溯宣稱 2026-09-27 每次失敗都是同一原因，也不把 headless 失敗等同一般訪客必然失敗。
+
+一手來源（2026-11-12 查閱）：[CodePen Embedded Pens](https://blog.codepen.io/documentation/embedded-pens/) 說明官方腳本以 iframe 嵌入；[Cloudflare Detect a Challenge Page response](https://developers.cloudflare.com/cloudflare-challenges/challenge-types/challenge-pages/detect-response/) 說明 `cf-mitigated: challenge` 的含義。
+
+### 證據、保留內容與限制
+
+下列原始紀錄與截圖位於 `/private/tmp/blog-browser-qa/`，已於補記前確認檔案存在；屬本機暫存證據，可能遭系統清理，未將其視為已納入 Git 或永久封存的 artifact。
+
+- `page-checks.log`：16 次頁面檢查、console 與失敗請求。
+- `codepen-network-diag.log`：有視窗模式的父頁／CodePen 回應標頭、iframe 屬性及載入結果。
+- `headless-codepen-diag.log`：本機與正式站的 403、Cloudflare challenge 與 SAMEORIGIN 標頭。
+- `codepen-interactions.log`：兩個來源各自 HTTP 200、2 個盒模型與 CSS 分頁開關驗證。
+- `home-desktop-final.png`、`home-mobile.png`、`search-mobile.png`、`image-zoom.png`：本機畫面與互動證據。
+- `local-codepen-working.png`、`production-codepen-proof.png`：本機／正式站成功嵌入及 CSS 分頁證據。
+
+其他未提交內容保持原樣，兩份原有計畫文件已核對 SHA-256：
+
+- `docs/plans/blog-framework-upgrade.plan.md`：`c3f44b32baad1cd0a617a3d3ef237120ff97c35c7901e9c3e133c79a9834ec8f`；仍保留既有未提交修改。
+- `docs/plans/dependency-security.plan.md`：`02db2084a8297beb96a96703517bce2232c1ff4831d83bda43426ca4c74e98a4`。
+
+本節文件補記只修改本驗證紀錄，未 commit、push 或部署。未重測 Firefox／Safari、手機實機、螢幕閱讀器或第三方登入／留言送出；Cloudflare 的策略與 session 結果可能隨時間改變。
