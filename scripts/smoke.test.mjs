@@ -169,5 +169,8 @@ test('one lockfile and no legacy VuePress runtime dependency chain', () => {
   const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
   for (const path of Object.keys(lock.packages))
     assert.ok(!/node_modules\/(vue|vuepress|webpack|@vssue)(\/|$)/.test(path), path);
-  assert.equal(JSON.parse(readFileSync('package.json', 'utf8')).devDependencies.astro, '7.3.5');
+  const astroVersion = JSON.parse(readFileSync('package.json', 'utf8')).devDependencies.astro;
+  assert.match(astroVersion, /^\d+\.\d+\.\d+$/, 'Astro must use an exact stable version');
+  assert.equal(lock.packages[''].devDependencies.astro, astroVersion);
+  assert.equal(lock.packages['node_modules/astro'].version, astroVersion);
 });
